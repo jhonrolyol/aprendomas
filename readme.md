@@ -1,12 +1,12 @@
 # El caso práctico: monitoreo de participación semanal 
 
 ## Contexto
-    Aprendo+ envía una actividad breve por día escolar a grupos de WhatsApp de 
-    familias y docentes de educación inicial. La plataforma registra las interacciones de las 
-    familias (por ejemplo, enviar una foto del niño o niña haciendo la actividad) y de las y los 
-    docentes. Tienes 6 semanas de datos (17 de agosto al 27 de septiembre de 2026) de 3 UGEL, 
-    24 instituciones y 48 grupos. Rocket Learning es el socio tecnológico que opera la 
-    plataforma y entrega los datos. UGEL es la Unidad de Gestión Educativa Local. 
+Aprendo+ envía una actividad breve por día escolar a grupos de WhatsApp de 
+familias y docentes de educación inicial. La plataforma registra las interacciones de las 
+familias (por ejemplo, enviar una foto del niño o niña haciendo la actividad) y de las y los 
+docentes. Tienes 6 semanas de datos (17 de agosto al 27 de septiembre de 2026) de 3 UGEL, 
+24 instituciones y 48 grupos. Rocket Learning es el socio tecnológico que opera la 
+plataforma y entrega los datos. UGEL es la Unidad de Gestión Educativa Local. 
 	
 # ¿Qué es aprendo+?
 	Es un programa que fortalece el desarrollo infantil temprano a través del juego, tanto 
