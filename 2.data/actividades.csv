@@ -1,0 +1,31 @@
+actividad_id,fecha_envio_utc,area,semana
+ACT001,2026-08-17 23:00:00,Desarrollo Personal y Social,1
+ACT002,2026-08-18 23:00:00,Comunicación,1
+ACT003,2026-08-19 23:00:00,Matemática,1
+ACT004,2026-08-20 23:00:00,Desarrollo Personal y Social,1
+ACT005,2026-08-21 23:00:00,Comunicación,1
+ACT006,2026-08-24 23:00:00,Matemática,2
+ACT007,2026-08-25 23:00:00,Desarrollo Personal y Social,2
+ACT008,2026-08-26 23:00:00,Comunicación,2
+ACT009,2026-08-27 23:00:00,Matemática,2
+ACT010,2026-08-28 23:00:00,Desarrollo Personal y Social,2
+ACT011,2026-08-31 23:00:00,Comunicación,3
+ACT012,2026-09-01 23:00:00,Matemática,3
+ACT013,2026-09-02 23:00:00,Desarrollo Personal y Social,3
+ACT014,2026-09-03 23:00:00,Comunicación,3
+ACT015,2026-09-04 23:00:00,Matemática,3
+ACT016,2026-09-07 23:00:00,Desarrollo Personal y Social,4
+ACT017,2026-09-08 23:00:00,Comunicación,4
+ACT018,2026-09-09 23:00:00,Matemática,4
+ACT019,2026-09-10 23:00:00,Desarrollo Personal y Social,4
+ACT020,2026-09-11 23:00:00,Comunicación,4
+ACT021,2026-09-14 23:00:00,Matemática,5
+ACT022,2026-09-15 23:00:00,Desarrollo Personal y Social,5
+ACT023,2026-09-16 23:00:00,Comunicación,5
+ACT024,2026-09-17 23:00:00,Matemática,5
+ACT025,2026-09-18 23:00:00,Desarrollo Personal y Social,5
+ACT026,2026-09-21 23:00:00,Comunicación,6
+ACT027,2026-09-22 23:00:00,Matemática,6
+ACT028,2026-09-23 23:00:00,Desarrollo Personal y Social,6
+ACT029,2026-09-24 23:00:00,Comunicación,6
+ACT030,2026-09-25 23:00:00,Matemática,6
