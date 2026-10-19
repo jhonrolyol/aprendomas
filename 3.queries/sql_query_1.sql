@@ -103,11 +103,11 @@
     go
 
 -- 4.- Import the data files in .csv format
-    bulk insert instituciones from '... colocar la ruta ...\instituciones.csv' with (format = 'csv', firstrow = 2, codepage = '65001', rowterminator = '0x0a', fieldterminator = ',', tablock);
-    bulk insert grupos        from '... colocar la ruta ...\2.data\grupos.csv'        with (format = 'csv', firstrow = 2, codepage = '65001', rowterminator = '0x0a', fieldterminator = ',', tablock);
-    bulk insert participantes from '... colocar la ruta ...\2.data\participantes.csv' with (format = 'csv', firstrow = 2, codepage = '65001', rowterminator = '0x0a', fieldterminator = ',', tablock);
-    bulk insert actividades   from '... colocar la ruta ...\2.data\actividades.csv'   with (format = 'csv', firstrow = 2, codepage = '65001', rowterminator = '0x0a', fieldterminator = ',', tablock);
-    bulk insert interacciones from '... colocar la ruta ...\2.data\interacciones.csv' with (format = 'csv', firstrow = 2, codepage = '65001', rowterminator = '0x0a', fieldterminator = ',', tablock);
+    bulk insert instituciones from '... colocar la ruta hasta la carpeta de datos ...\instituciones.csv' with (format = 'csv', firstrow = 2, codepage = '65001', rowterminator = '0x0a', fieldterminator = ',', tablock);
+    bulk insert grupos        from '... colocar la ruta hasta la carpeta de datos ...\grupos.csv'        with (format = 'csv', firstrow = 2, codepage = '65001', rowterminator = '0x0a', fieldterminator = ',', tablock);
+    bulk insert participantes from '... colocar la ruta hasta la carpeta de datos ...\participantes.csv' with (format = 'csv', firstrow = 2, codepage = '65001', rowterminator = '0x0a', fieldterminator = ',', tablock);
+    bulk insert actividades   from '... colocar la ruta hasta la carpeta de datos ...\actividades.csv'   with (format = 'csv', firstrow = 2, codepage = '65001', rowterminator = '0x0a', fieldterminator = ',', tablock);
+    bulk insert interacciones from '... colocar la ruta hasta la carpeta de datos ...\interacciones.csv' with (format = 'csv', firstrow = 2, codepage = '65001', rowterminator = '0x0a', fieldterminator = ',', tablock);
     go
 
     select * from instituciones;
@@ -126,5 +126,23 @@
     union all select 'interacciones', count(*) from interacciones;
     go
 
+-- 6.- Construction of the database diagram
+    
+    -- instituciones ---> grupos ---> participantes --X-> interacciones ---> actividades
+    -- consultas para detectar el problema entre la tabla "participantes" y "interacciones"
+    select * from participantes;
+    go
+
+    select * from interacciones
+    order by participante_id desc;
+    go
+
+    -- Fijate que el identificador del participante "participante_id" como máximo es "P01101"
+    -- Ahora si observa el campo "participante_id" en la tabla de interaccion 
+    -- este tiene "participante_id" como "P90285 a P99955"
+    -- si se contabiliza estos son 40 filas (40 identificadores)
+
+
+    -- Hipótesis: Podrían deberse a que faltan participantes en el archivo original.
 
 
