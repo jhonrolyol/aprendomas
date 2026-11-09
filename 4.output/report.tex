@@ -1,0 +1,557 @@
+% =====================================================
+%  PLANTILLA DE INFORME
+%  Compilar con: pdflatex (2 veces, para índice y refs)
+% =====================================================
+\documentclass[12pt,a4paper]{article}
+
+	\usepackage{xcolor}
+	\usepackage{listings}
+	\usepackage{tcolorbox}
+	\definecolor{main}{RGB}{145,145,145}
+	\usepackage{lscape}
+	
+	% ---------- Codificación e idioma ----------
+	\usepackage[utf8]{inputenc}
+	\usepackage[T1]{fontenc}
+	\usepackage{lmodern}
+	\usepackage[spanish,es-tabla]{babel}   % "Tabla" en vez de "Cuadro"
+	\decimalpoint                          % punto decimal (Perú/LatAm)
+	
+	% ---------- Formato de página ----------
+	\usepackage[margin=2cm]{geometry} % 2.5cm o 2cm
+	\usepackage{setspace}
+	\onehalfspacing
+	\usepackage{microtype}                 % mejor justificación del texto
+	\setlength{\parindent}{1.25cm}
+	\setlength{\parskip}{4pt}
+	
+	% ---------- Encabezado y pie de página ----------
+	\usepackage{fancyhdr}
+	\pagestyle{fancy}
+	\fancyhf{}
+	\fancyhead[L]{\small\itshape \tituloinforme}
+	%\fancyhead[R]{\small\leftmark}
+	\fancyhead[R]{\small Monitoreo de participación semanal}
+	\fancyfoot[C]{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	
+	% ---------- Títulos de sección ----------
+	\usepackage{titlesec}
+	\titleformat{\section}{\Large\bfseries}{\thesection.}{0.6em}{}
+	\titleformat{\subsection}{\large\bfseries}{\thesubsection.}{0.6em}{}
+	
+	% ---------- Matemáticas, figuras, tablas, código ----------
+	\usepackage{amsmath,amssymb}
+	\usepackage{graphicx}
+	\usepackage{booktabs}
+	\usepackage{caption}
+	\captionsetup{font=small,labelfont=bf}
+	\usepackage{listings}
+	\lstset{basicstyle=\ttfamily\small,breaklines=true,frame=single}
+	
+	% ---------- Enlaces y PDF ----------
+	\usepackage[hidelinks]{hyperref}
+	
+	% ---------- Datos del informe (editar aquí) ----------
+	\newcommand{\tituloinforme}{Caso Práctico}
+	\newcommand{\subtituloinforme}{Monitoreo de participación semanal}
+	\newcommand{\autorinforme}{Jhon R. Ordoñez}
+	\newcommand{\institucion}{Aprendo +}
+	\newcommand{\fechainforme}{\today}
+	
+	\hypersetup{pdftitle={\tituloinforme}, pdfauthor={\autorinforme}}
+
+	% ---------- Soporte de tildes y ñ dentro del código (con utf8) ----------
+	\lstset{
+		literate=
+		{á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+		{Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+		{ñ}{{\~n}}1 {Ñ}{{\~N}}1
+	}
+	\lstdefinestyle{tsql}{
+		language=SQL,
+		morekeywords={use, go, if, begin, end, if, top},
+		basicstyle=\ttfamily\small,
+		keywordstyle=\color{blue}\bfseries,
+		commentstyle=\color{green!50!black}\itshape,
+		stringstyle=\color{red!70!black},
+		numbers=none, % none or left 
+		numberstyle=\tiny\color{gray},
+		frame = none,
+		breaklines=true,
+		showstringspaces=false,
+		captionpos=b,
+		tabsize=4,
+		morecomment=[l]{--},
+		morecomment=[s]{/*}{*/},
+		morestring=[b]'
+	}
+
+% =====================================================
+\begin{document}
+	
+	% ---------- Portada ----------
+	\begin{titlepage}
+		\centering
+		\vspace*{2cm}
+		{\huge\scshape \institucion\par}
+		\vspace{3cm}
+		\rule{\textwidth}{1.2pt}\par\vspace{0.6cm}
+		{\Huge\bfseries \tituloinforme\par}
+		\vspace{0.4cm}
+		{\Large \subtituloinforme\par}
+		\vspace{0.6cm}
+		\rule{\textwidth}{1.2pt}\par
+		\vspace{0.6cm}
+			\begin{abstract}
+				\noindent La participación de las familias se mantiene en torno al 33\% en la semana 6, pero ese
+				promedio esconde un problema concentrado en tres instituciones rurales de UGEL C (IE-C05,
+				IE-C06 e IE-C07), donde la participación cayó de aproximadamente 37\% a 7\%.
+			 	Estas instituciones
+				incluyen los cinco grupos con mayor caída y 40 de las 142 familias que dejaron de participar,
+				por lo que es ahí donde conviene actuar primero. Además, la baja de UGEL B en la semana 3 (21.8\%)
+				no refleja un desinterés de las familias, sino la ausencia de registros los días 2 y 3 de
+				septiembre, por lo que esa cifra no es comparable y debe leerse como dato incompleto.
+			\end{abstract}
+		\vfill
+		{\Large \autorinforme\par}
+		\vspace{0.5cm}
+		{\large \fechainforme\par}
+		\vspace{1cm}
+	\end{titlepage}
+	
+	% ---------- Resumen ----------
+	%\begin{abstract}
+	%	Escriba aquí un resumen breve del informe: objetivo, método
+	%	y principales resultados ...
+	%\end{abstract}
+	
+	%\newpage
+	%\tableofcontents
+	%\newpage
+	
+	% ---------- Section 1 ----------
+	\section{SQL}
+		
+
+		% ---------- Subsection 1.1 ----------
+		\subsection{Tasa de participación semanal}
+			
+			% Entregable 1.1
+			\noindent \textbf{Pregunta 1.1:} La tasa de participación semanal por UGEL y en total, para las 6 semanas.
+			
+			
+			\noindent Para poder entender la siguiente tabla, recordemos la definición de la métrica principal.
+		
+			\begin{center}
+				\setlength{\fboxsep}{6pt}
+				\setlength{\fboxrule}{0.8pt}
+				\fbox{%
+					\parbox{0.80\textwidth}{%
+					\centering
+					\textbf{Tasa de participación semanal} = \textcolor{blue}{familias distintas con al menos una 
+					respuesta con evidencia (imagen, foto, audio o video) en las actividades de la semana} \textbf{÷} \textcolor{teal}{familias 
+					registradas hasta el fin de esa semana}.
+				}}
+			\end{center}
+			
+			\noindent Una persona cuenta una sola vez aunque tenga más de un registro. 
+				
+			% Tabla 1
+			\begin{table}[h]
+				\centering
+				\caption{Tasa de participación semanal, según ugel (\%)}
+				\label{tab: tasa}
+				\begin{tabular}{ccccc}
+					\toprule
+					Semana & UGEL A & UGEL B & UGEL C & Total \\
+					\midrule
+					1 & 38.4 & 37.2 & 31.0 & 35.5 \\
+					2 & 43.3 & 36.0 & 32.3 & 37.1 \\
+					3 & 42.4 & 21.8 & 36.0 & 33.4 \\
+					4 & 48.1 & 41.0 & 36.6 & 41.8 \\
+					5 & 42.1 & 39.5 & 28.8 & 36.8 \\
+					6 & 40.9 & 34.2 & 24.2 & 33.0 \\
+					\bottomrule
+				\end{tabular}
+			\end{table}
+			
+		\noindent La participación total se mantuvo entre 33.0 \% y 41.8 \% durante las seis semanas,
+		con un pico en la semana 4 (41.8 \%, el mayor valor en las tres UGEL) y una caída posterior
+		hasta 33.0 \% en la semana 6. UGEL A es la de mejor desempeño y mayor estabilidad (38.4 \%-48.1\%),
+		UGEL B es la más volátil, con un descenso marcado en la semana 3 (21.8 \%, el mínimo de toda la tabla)
+		seguido de recuperación y nueva baja gradual, y UGEL C tiene el rendimiento más bajo y un deterioro
+		reciente, pues pasó de 36.6 \% en la semana 4 a 24.2 \% en la semana 6. La brecha entre UGEL A y C se
+		amplió de 7.4 a 16.7 puntos porcentuales, por lo que se recomienda identificar qué favoreció la
+		participación en la semana 4, investigar la caída de UGEL B en la semana 3 y priorizar el acompañamiento 
+		en UGEL C, tomando las prácticas de UGEL A como referencia.
+			
+		% ---------- Subsection 1.2 ----------
+		\subsection{Cinco grupos con mayor caida}
+
+			% Entregable 1.2
+			\noindent \textbf{Pregunta 1.2:} Los 5 grupos con mayor caída de participación entre el promedio de las semanas 1 a 
+			4 y el promedio de las semanas 5 y 6. 
+		
+			% Tabla 2
+			\begin{table}[h]
+				\centering
+				\caption{Los cinco grupos con mayor caída}
+				\label{tab: tasa}
+				\begin{tabular}{ccccccc}
+					\toprule
+					N° & Grupo & UGEL  & Prom. S1-S4(\%) & Prom. S5-S6(\%) & Caída (pp) & Familias \\
+					\midrule
+					1 & G-C06-5 & UGEL C & 44.2 & 9.6  & 34.6 & 26 \\
+					2 & G-C07-5 & UGEL C & 38.3 & 5.9  & 32.4 & 17 \\
+					3 & G-C07-4 & UGEL C & 37.1 & 8.8  & 28.3 & 17 \\
+					4 & G-C06-4 & UGEL C & 35.5 & 8.3  & 27.1 & 18 \\
+					5 & G-C05-5 & UGEL C & 38.3 & 12.5 & 25.8 & 24 \\
+					\bottomrule
+				\end{tabular}
+			\end{table}
+		
+		\noindent Cinco grupos de UGEL C, todos de tres instituciones rurales (IE-C05, IE-C06 e IE-C07), pasaron de 
+		una participación de 35\% a 44\% en las semanas 1 a 4 a solo 6\% a 13\% en las semanas 5 y 6, una pérdida de 
+		26 a 35 puntos porcentuales. La mayor caída es G-C06-5, que bajó de 44.2\% a 9.6\%. Estos grupos suman 102 familias,
+		cerca del 10\% de las 1,023 registradas, y por eso la tasa total solo bajó de 36.8\% a 33.0\%, ya que el 
+		promedio oculta el problema. En cuatro de los cinco grupos las docentes no escribieron nada en la semana 5,
+		y en el quinto casi nada, lo que apunta a un problema operativo más que a desinterés de las familias, aunque 
+		con estos datos no podemos confirmar la causa. Los grupos son pequeños (17 a 26 familias), pero la caída se
+		repite en los cinco, así que no parece azar. Esta semana conviene pedir a Rocket Learning el estado de
+		esos grupos, llamar a las docentes de las tres instituciones y definir un plan de recuperación.
+		
+		
+		% ---------- Subsection 1.3 ----------
+		\subsection{Familias que dejan de participar}
+			
+			% Entregable 1.3
+			\noindent \textbf{Pregunta 1.3:} Cuántas familias participaron con evidencia en al menos 2 semanas distintas, de las 
+			semanas 1 a 4 y no participaron con evidencia en las semanas 5 y 6, y en qué grupos se 
+			concentran. 
+			
+			% Tabla 3
+			\begin{table}[h]
+				\centering
+				\caption{Familias que dejan de participar}
+				\label{tab: tasa}
+				\begin{tabular}{cccccc}
+					\toprule
+					Grupo & UGEL & Familias que dejan & Familias del grupo & \% del grupo & \% acum. del total  \\
+					\midrule
+					G-C05-5 & C & 10 & 24 & 41.7 &  7.0 \\
+					G-C06-5 & C & 10 & 26 & 38.5 & 14.1 \\
+					G-A04-5 & A & 5  & 21 & 23.8 & 17.6 \\
+					G-B02-5 & B & 5  & 17 & 29.4 & 21.1 \\
+					G-C05-4 & C & 5  & 25 & 20.0 & 24.6 \\
+					G-C06-4 & C & 5  & 18 & 27.8 & 28.2 \\
+					G-C07-4 & C & 5  & 17 & 29.4 & 31.7 \\
+					G-C07-5 & C & 5  & 17 & 29.4 & 35.2 \\
+					\vdots & \vdots & \vdots  & \vdots  & \vdots  & \vdots  \\
+					G-C04-5& C &  1  & 19 & 5.3 & 100.0 \\
+					\bottomrule
+				\end{tabular}
+			\end{table}
+			
+		\noindent Entre las 142 familias que dejaron de participar, la pérdida se concentra más en unos pocos grupos
+		que en el conjunto. Son familias que participaban con evidencia en al menos dos de las primeras
+		cuatro semanas y no lo hicieron en las semanas 5 y 6. Dos grupos, G-C05-5 y G-C06-5, perdieron cada
+		uno 10 familias, cerca de 4 de cada 10 de las suyas (41.7\% y 38.5\%). Juntos explican el 14.1\% del 
+		total, y los ocho grupos más afectados suman el 35.2\%. Seis de esos ocho grupos están en UGEL C.
+		Otros 39 grupos pierden entre 1 y 4 familias cada uno, lo que parece un desgaste disperso, sin una 
+		causa común visible. Por eso conviene atender primero los grupos de UGEL C, donde la pérdida es
+		alta en términos relativos (entre 20\% y 42\% del grupo), antes que aplicar medidas generales.
+		
+		% ---------- Subsection 1.4 ----------
+		\subsection{Controles de calidad}
+		
+			% Entregable 1.4
+			\noindent \textbf{Pregunta 1.4:} Consultas de control de calidad que cuantifiquen los problemas que encuentres en 
+			los datos. 
+			
+			\begin{enumerate}
+				\item La variable tipo tiene variantes en sus categorías Foto, 
+				      FOTO (con espacio al final), imagen, Audio, Video y Reaccion; estas variantes
+				      afectan a 391 filas (representa el 5.5 \% de 7077 filas), de las cuales 351 filas son 
+				      categorias consideradas como evidencia y 40 no se consideran evidencia.
+				      La consulta lo puede ver en el \textcolor{blue}{anexo \ref{anexo 5}}            
+				\item En la tabla participantes una misma persona (telefono\_hash) con 2 participante\_id, siempre
+					  en el mismo grupo, estos duplicados afecta a 60 filas = 30 personas (30 sobrantes).
+					  La consulta lo puede ver en el \textcolor{blue}{anexo \ref{anexo 5}}
+				\item En la tabla interacciones se tiene duplicado exacto, donde mismo participante, actividad, instante y tipo con distinto
+				      interaccion\_id. Esos duplicados generan 137 filas sobrantes que representa el 1.9\% de 7077.
+				      La consulta lo puede ver en el \textcolor{blue}{anexo \ref{anexo 5}}.
+				\item Respuestas fechada antes del envío de la actividad (hora de
+				      Lima; hasta 34.6 h antes), donde 50 filas son afectadas que representa el 0.7\% de 7077, 
+				      de las cuales 31 filas con evidencia. 
+				      La consulta lo puede ver en el \textcolor{blue}{anexo \ref{anexo 5}}.
+				\item Se identifica un vacío de datos en la semana 3 para la UGEL B, específicamente en las actividades 13
+				      y 14, correspondientes al 2 y 3 de septiembre, respectivamente. En ambas actividades no se registraron
+				      interacciones durante las fechas señaladas, por lo que el número de interacciones es igual a cero.
+					  La consulta lo puede ver en el \textcolor{blue}{anexo \ref{anexo 5}}.
+			\end{enumerate}
+
+		
+		
+	% ---------- Section 2 ----------
+	\newpage
+	\section{Calidad de datos}
+		
+		% Entregable 1.4
+		\noindent \textbf{Pregunta 2:} Lista priorizada de los problemas que 
+		encontraste, su impacto en la métrica, qué corregirías tú y qué le pedirías al equipo de 
+		Rocket Learning. 
+		
+			\begin{enumerate}
+				\item Durante la semana 3 (2-3 de septiembre) se detectó un hueco en los datos de la UGEL B, 
+				      con 0 registros en ACT013-014, esto distorsiona la métrica: la UGEL B marca 21.8\% en la
+				      semana 3 frente a 36.0\% y 41.0\% en semana 2 y semana 4, y el total de semana 3 queda en 33.4\%,
+				      lo que sesga el promedio de la semana 1 a 4 de los 16 grupos. Mi propuesta es no imputar los valores
+				      faltantes, sino marcar la semana 3 del UGEL B como “dato incompleto”. A Rocket Learning le pediría que identifique la causa
+				      (plataforma, ingesta o WhatsApp), que vuelva a revisar los datos faltantes y que 
+				      comparta los hallazgos.
+				\item Se detectó un problema de estandarización en el campo “tipo”: 391 filas no están normalizadas,
+				      de las cuales 351 contienen evidencia (el 10.6\% del total de evidencias). Dejar estos valores
+				      sin normalizar afecta la métrica. Para corregirlo, aplicaría
+				      lower(ltrim(rtrim())) para limpiar el texto, unificaría “imagen” como “foto” y crearía una tabla
+				      de dominio con los valores válidos. A Rocket Learning le pediría una lista cerrada de tipos,
+				      validada desde el origen, para evitar que el problema se repita.
+				\item Se detectaron 30 personas registradas con dos IDs distintos (60 filas en total), que comparten 
+				      el mismo teléfono y grupo. Esto infla el denominador de la métrica. Para corregirlo, definiría
+				      a la persona por su telefono\_hash y conservaría como alta
+				      válida la más antigua. A Rocket Learning le pediría un ID de persona estable, que explique por
+				      qué las personas se re-registran y que aplique la deduplicación desde el origen.
+				\item Se detectaron 50 respuestas registradas antes de la hora 
+				      de envío, según la hora de Lima, con diferencias de hasta 34.6 horas.
+				      A Rocket Learning le pediría que revise el reloj o huso horario y la asignación del actividad\_id.
+				\item Se detectaron 137 filas duplicadas exactas. Esto no afecta la tasa, porque esta
+				      cuenta personas únicas, pero sí infla los conteos de mensajes.
+			\end{enumerate}
+			
+			
+	
+	% ---------- Section 3 ----------
+	\newpage 
+	\section{Alerta}
+		
+		% Entregable 1.4
+		\noindent \textbf{Pregunta 3:} Un mensaje al CEO y a la PMO Lead, como si fuera el 
+		lunes 28, sobre lo que muestra el reporte. Debe poder leerse en un minuto por alguien no 
+		técnico y decir qué sabes, qué no sabes y qué harías esta semana. \\ [3mm]
+	
+		\noindent \textbf{Asunto: Participación semana 6 (lunes 28)}
+		
+		\noindent Estimado (a),
+		
+		\noindent \textbf{Lo que sabemos:} el 33\% de las familias envió imagen, foto, audio o
+		video esta semana, mientras que la semana anterior fue 36.8\%. La caída
+		se concentra en las instituciones educativas rurales 5, 6 y 7
+		del UGEL C de aproximadamente 37\% a 7\%, y allí casi no
+		escriben las docentes.
+		
+		\noindent \textbf{Lo que no sabemos:} si es desinterés, un problema técnico del grupo de WhatsApp o un error de datos. Además, UGEL
+		B no tiene registros el 2 y 3 de septiembre; su semana 3 no es comparable.
+		
+		\noindent \textbf{Lo que haremos esta semana:} hoy pedimos a Rocket Learning confirmar el hueco y el estado de esos grupos;
+		mañana llamamos a las docentes; el viernes informo causa y plan.
+		
+		\noindent Atentamente,
+		
+		\noindent Jhon R. Ordoñez
+		
+	% ---------- Section 4 ----------
+	\newpage
+	\section{Automatización}
+		
+		% Entregable 1.4
+		\noindent \textbf{Pregunta 4:} Cómo dejarías este reporte 
+		corriendo todos los días y cada semana sobre AWS: qué se ejecuta y cuándo, qué 
+		validaciones incluye, qué pasa si algo falla y quién se entera. Si no conoces AWS, propón el 
+		servicio equivalente. También: Indica tus supuestos sobre cómo llegan los datos.
+	
+		% Diagrama básico
+		\begin{center}
+			\setlength{\fboxsep}{6pt}
+			\setlength{\fboxrule}{0.8pt}
+			
+			\fbox{\textcolor{darkgray}{\textbf{1. Obtener data}}}
+			
+			Recibir los archivos .csv en una carpeta con fecha (Manual al inicio)
+			
+			\vspace{2mm}
+			$\downarrow$
+			\vspace{2mm}
+			
+			\fbox{\textcolor{blue}{\textbf{2. Cargar a SQL}}}
+			
+			Cargar los archivos tal cual a tablas crudas (bulk insert)
+			
+			\vspace{2mm}
+			$\downarrow$
+			\vspace{2mm}
+			
+			\fbox{\textcolor{blue}{\textbf{3. Validar}}}
+			
+			Correr los controles de calidad y guardar el resultado
+			
+			\fbox{%
+				\parbox{0.80\textwidth}{%
+					\centering
+					\textcolor{red}{
+						Si un control de calidad falla, se suspende la publicación y se comunica
+						de inmediato la incidencia al líder del proyecto. Mientras se espera una
+						respuesta, se investiga la causa y se evalúan posibles soluciones.
+						La publicación se reanuda únicamente después de corregir y validar
+						satisfactoriamente la incidencia.  
+					}
+			}}
+			
+			\vspace{2mm}
+			$\downarrow$
+			\vspace{2mm}
+			
+			\fbox{\textcolor{blue}{\textbf{4. Tablas de análisis}}}
+			
+			Calcular la métrica una sola vez (Tablas auxiliares y consultas)
+			
+			\vspace{2mm}
+			$\downarrow$
+			\vspace{2mm}
+			
+			\fbox{\textcolor{teal}{\textbf{5. Power BI}}}
+			
+			Leer las tablas ya listas (Conexión a SQL Server)
+			
+			\vspace{2mm}
+			$\downarrow$
+			\vspace{2mm}
+			
+			\fbox{\textcolor{teal}{\textbf{6. Dashboard} (3 páginas)}}
+			
+			Mostrar el resultado (Participación, alertas y calidad de datos)
+			
+		\end{center}
+	
+	
+	% ---------- Anexos ----------
+	\newpage	
+	\begin{center}
+		\vspace*{10cm}
+		{\Huge \textbf{ANEXO}}
+	\end{center}
+	\newpage 
+	
+	\appendix
+	% Appendix 1	
+	%\begin{landscape}
+	%\end{landscape}
+	\section{Consultas SQL para generar tablas auxiliares}\label{anexo 1}
+	
+	    \noindent Para el desarrollo y ejecución de las consultas se utilizó Microsoft SQL Server como motor
+		de base de datos, Transact-SQL (T-SQL) como lenguaje de consulta y SQL Server Management Studio (SSMS)
+		como entorno de administración y ejecución.
+		
+		% Tabla 1
+		\begin{tcolorbox}[colback= main!40, colframe=main!40]
+			\lstinputlisting[style=tsql, basicstyle=\fontsize{7}{5}\selectfont\ttfamily]{queries/table_1.sql}
+		\end{tcolorbox}
+		% Tabla 2
+		\begin{tcolorbox}[colback= main!40, colframe=main!40]
+			\lstinputlisting[style=tsql, basicstyle=\fontsize{7}{5}\selectfont\ttfamily]{queries/table_2.sql}
+		\end{tcolorbox}
+		% Tabla 3
+		\begin{tcolorbox}[colback= main!40, colframe=main!40]
+			\lstinputlisting[style=tsql, basicstyle=\fontsize{7}{5}\selectfont\ttfamily]{queries/table_3.sql}
+		\end{tcolorbox}
+		% Tabla 4
+		\begin{tcolorbox}[colback= main!40, colframe=main!40]
+			\lstinputlisting[style=tsql, basicstyle=\fontsize{7}{5}\selectfont\ttfamily]{queries/table_4.sql}
+		\end{tcolorbox}
+	
+	% Appendix 2
+	\section{Consulta SQL de la parte 1.1}\label{anexo 2}
+		
+		\noindent Para el desarrollo y ejecución de las consultas se utilizó Microsoft SQL Server como motor
+		de base de datos, Transact-SQL (T-SQL) como lenguaje de consulta y SQL Server Management Studio (SSMS)
+		como entorno de administración y ejecución.
+		
+		% Consulta 1
+		\begin{tcolorbox}[colback = main!40, colframe = main!40]
+			\lstinputlisting[style=tsql, basicstyle=\fontsize{4.4}{4}\selectfont\ttfamily]{queries/parte1.1_query_1.sql}
+		\end{tcolorbox}
+		
+	% Appendix 3
+	\section{Consulta SQL de la parte 1.2}\label{anexo 3}
+		
+		\noindent Para el desarrollo y ejecución de las consultas se utilizó Microsoft SQL Server como motor
+		de base de datos, Transact-SQL (T-SQL) como lenguaje de consulta y SQL Server Management Studio (SSMS)
+		como entorno de administración y ejecución.
+		
+		% Consulta 2
+		\begin{tcolorbox}[colback = main!40, colframe = main!40]
+			\lstinputlisting[style=tsql, basicstyle=\fontsize{4.4}{4}\selectfont\ttfamily]{queries/parte1.2_query_1.sql}
+		\end{tcolorbox}
+		
+	% Appendix 4
+	\section{Consulta SQL de la parte 1.3}\label{anexo 4}
+		
+		\noindent Para el desarrollo y ejecución de las consultas se utilizó Microsoft SQL Server como motor
+		de base de datos, Transact-SQL (T-SQL) como lenguaje de consulta y SQL Server Management Studio (SSMS)
+		como entorno de administración y ejecución.
+		
+		% Consulta 3
+		\begin{tcolorbox}[colback = main!40, colframe = main!40]
+			\lstinputlisting[style=tsql, basicstyle=\fontsize{4.4}{4}\selectfont\ttfamily]{queries/parte1.3_query_1.sql}
+		\end{tcolorbox}
+	
+	% Appendix 5
+	\section{Consulta SQL de la parte 1.4}\label{anexo 5}
+		
+		\noindent Para el desarrollo y ejecución de las consultas se utilizó Microsoft SQL Server como motor
+		de base de datos, Transact-SQL (T-SQL) como lenguaje de consulta y SQL Server Management Studio (SSMS)
+		como entorno de administración y ejecución.
+		
+		% Consulta 4
+		\begin{tcolorbox}[colback = main!40, colframe = main!40]
+			\lstinputlisting[style=tsql, basicstyle=\fontsize{4.4}{4}\selectfont\ttfamily]{queries/parte1.4_query_1.sql}
+		\end{tcolorbox}
+		% Consulta 5
+		\begin{tcolorbox}[colback = main!40, colframe = main!40]
+			\lstinputlisting[style=tsql, basicstyle=\fontsize{4.4}{4}\selectfont\ttfamily]{queries/parte1.4_query_2.sql}
+		\end{tcolorbox}
+		% Consulta 6
+		\begin{tcolorbox}[colback = main!40, colframe = main!40]
+			\lstinputlisting[style=tsql, basicstyle=\fontsize{4.4}{4}\selectfont\ttfamily]{queries/parte1.4_query_3.sql}
+		\end{tcolorbox}
+		% Consulta 7
+		\begin{tcolorbox}[colback = main!40, colframe = main!40]
+			\lstinputlisting[style=tsql, basicstyle=\fontsize{4.4}{4}\selectfont\ttfamily]{queries/parte1.4_query_4.sql}
+		\end{tcolorbox}
+		% Consulta 8
+		\begin{tcolorbox}[colback = main!40, colframe = main!40]
+			\lstinputlisting[style=tsql, basicstyle=\fontsize{4.4}{4}\selectfont\ttfamily]{queries/parte1.4_query_5.sql}
+		\end{tcolorbox}
+
+	\label{key}
+	% Appendix 5
+	\section{Definiciones y supuestos usados}
+	\noindent Participación es igual a familia con mayor o igual a una interacción de tipo
+	foto, imagen, audio o video en alguna actividad de la semana;
+	solo rol familia; persona es igual a telefono\_hash (una persona cuenta una vez aunque tenga 2 identificadores); 
+	denominador es igual a familias con fecha\_alta menor o igual a domingo de esa
+	semana; la semana es la de la actividad respondida; texto, reacción y reenvío no son evidencia;
+	identificadores no registrados se excluyen. El analista de tecnología de Aprendo+ confirmó que  
+	imagen es igual a foto; cierre semanal es igual a domingo, con todas las familias registradas hasta ese día;
+	ninguna familia sale de los grupos (el denominador nunca baja). Zona horaria de Perú (UTC-5, sin
+	horario de verano); las actividades salen a las 18:00
+	Lima (23:00 UTC) y cada respuesta va a la semana de su actividad.
+	
+	
+\end{document}
+
+
+
+
+
+
+
