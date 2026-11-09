@@ -1,0 +1,10 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}SQL}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Tasa de participación semanal}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Cinco grupos con mayor caida}{3}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Familiar que dejan de participar}{3}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Controles de calidad}{3}{subsection.1.4}%
+\contentsline {section}{\numberline {2}Calidad de datos}{3}{section.2}%
+\contentsline {section}{\numberline {3}Alerta}{3}{section.3}%
+\contentsline {section}{\numberline {4}Automatización}{3}{section.4}%
+\contentsline {section}{\numberline {A}Anexo}{3}{section.A}%
