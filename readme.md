@@ -11,7 +11,7 @@ amplió de 7.4 a 16.7 puntos porcentuales, por lo que se recomienda identificar 
 participación en la semana 4, investigar la caída de UGEL B en la semana 3 y priorizar el acompañamiento 
 en UGEL C, tomando las prácticas de UGEL A como referencia.
 
-![](...)
+![](https://github.com/jhonrolyol/aprendomas/blob/master/4.output/figures/dashboard_001.png)
 
 
 ## Pregunta 2.- Los 5 grupos con mayor caída de participación entre el promedio de las semanas 1 a 4 y el promedio de las semanas 5 y 6. 
@@ -25,7 +25,7 @@ con estos datos no podemos confirmar la causa. Los grupos son pequeños (17 a 26
 repite en los cinco, así que no parece azar. Esta semana conviene pedir a Rocket Learning el estado de
 esos grupos, llamar a las docentes de las tres instituciones y definir un plan de recuperación.
 
-![](...)
+![](https://github.com/jhonrolyol/aprendomas/blob/master/4.output/figures/dashboard_002.png)
 
 
 ## Pregunta 3.- Cuántas familias participaron con evidencia en al menos 2 semanas distintas, de las semanas 1 a 4 y no participaron con evidencia en las semanas 5 y 6, y en qué grupos se concentran.
@@ -38,7 +38,7 @@ Otros 39 grupos pierden entre 1 y 4 familias cada uno, lo que parece un desgaste
 causa común visible. Por eso conviene atender primero los grupos de UGEL C, donde la pérdida es
 alta en términos relativos (entre 20 % y 42 % del grupo), antes que aplicar medidas generales.
 
-![](...)
+![](https://github.com/jhonrolyol/aprendomas/blob/master/4.output/figures/dashboard_003.png)
 
 
 ## Contexto
